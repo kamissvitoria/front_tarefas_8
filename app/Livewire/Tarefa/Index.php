@@ -12,6 +12,11 @@ class Index extends Component
     public $data_hora;
     public $descricao;
 
+    protected $listeners = [
+        'AbrirModalEdicao',
+        'tarefaAtualizada' => 'render'
+    ];
+
     public function render()
     {
         $tarefas = Tarefa::all();
@@ -32,6 +37,10 @@ class Index extends Component
     public function AbrirModalExclusao($tarefaId)
     {
         $this->tarefaId = $tarefaId;
+    }
+
+    public function abrirModalEdicao($tarefaId){
+        $this->dispatch('editarTarefa', tarefaId: $tarefaId);
     }
 
     public function excluir()
